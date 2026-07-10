@@ -1,0 +1,901 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tai Life — Building a Life Worth Living</title>
+<meta name="description" content="Founder, mother, entrepreneur, wellness advocate. A personal journey of building health, family, business, and freedom from Chiang Mai, Thailand.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;1,9..144,400;1,9..144,500&family=Work+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --cream: #F7F3EA;
+    --cream-deep: #EFE9DB;
+    --sage: #8A9A7E;
+    --sage-deep: #5C6B50;
+    --sage-pale: #DCE3D4;
+    --ink: #2B2A25;
+    --ink-soft: #7A786C;
+    --gold: #C9A66B;
+    --serif: 'Fraunces', serif;
+    --sans: 'Work Sans', sans-serif;
+  }
+
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--cream);
+    color:var(--ink);
+    font-family:var(--sans);
+    font-weight:300;
+    line-height:1.7;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+  a{color:inherit;text-decoration:none;}
+  img{max-width:100%;display:block;}
+
+  @media (prefers-reduced-motion: reduce){
+    *{animation-duration:0.01ms !important; transition-duration:0.01ms !important;}
+  }
+
+  /* ---------- utility ---------- */
+  .wrap{max-width:1180px;margin:0 auto;padding:0 32px;}
+  .eyebrow{
+    font-family:var(--sans);
+    font-size:12px;
+    letter-spacing:0.22em;
+    text-transform:uppercase;
+    color:var(--sage-deep);
+    font-weight:500;
+  }
+  .btn{
+    display:inline-flex;
+    align-items:center;
+    gap:10px;
+    padding:15px 32px;
+    border:1px solid var(--ink);
+    border-radius:999px;
+    font-size:13px;
+    letter-spacing:0.1em;
+    text-transform:uppercase;
+    font-weight:500;
+    transition:all .35s ease;
+    white-space:nowrap;
+  }
+  .btn:hover{background:var(--ink);color:var(--cream);}
+  .btn.filled{background:var(--sage-deep);border-color:var(--sage-deep);color:var(--cream);}
+  .btn.filled:hover{background:var(--ink);border-color:var(--ink);}
+
+  .divider-breath{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:18px;
+    margin:0 auto;
+    width:fit-content;
+  }
+  .divider-breath::before,.divider-breath::after{
+    content:'';
+    height:1px;
+    width:64px;
+    background:linear-gradient(to right, transparent, var(--sage));
+  }
+  .divider-breath::after{background:linear-gradient(to left, transparent, var(--sage));}
+  .breath-dot{
+    width:7px;height:7px;border-radius:50%;
+    background:var(--sage);
+    animation:breathe 4.2s ease-in-out infinite;
+  }
+  @keyframes breathe{
+    0%,100%{transform:scale(1);opacity:.55;}
+    50%{transform:scale(2.1);opacity:1;}
+  }
+
+  /* ---------- nav ---------- */
+  header{
+    position:fixed;top:0;left:0;right:0;
+    z-index:100;
+    padding:26px 0;
+    transition:all .4s ease;
+  }
+  header.scrolled{
+    background:rgba(247,243,234,0.92);
+    backdrop-filter:blur(10px);
+    padding:16px 0;
+    box-shadow:0 1px 0 rgba(0,0,0,0.06);
+  }
+  nav{
+    display:flex;align-items:center;justify-content:space-between;
+  }
+  .logo{
+    font-family:var(--serif);
+    font-style:italic;
+    font-weight:500;
+    font-size:24px;
+    color:var(--ink);
+    letter-spacing:0.01em;
+  }
+  .logo span{color:var(--sage-deep);}
+  .nav-links{
+    display:flex;
+    gap:34px;
+    font-size:13px;
+    letter-spacing:0.06em;
+    text-transform:uppercase;
+    font-weight:500;
+  }
+  .nav-links a{
+    position:relative;
+    padding-bottom:4px;
+  }
+  .nav-links a::after{
+    content:'';
+    position:absolute;left:0;bottom:0;
+    width:0;height:1px;
+    background:var(--sage-deep);
+    transition:width .3s ease;
+  }
+  .nav-links a:hover::after{width:100%;}
+  .nav-cta{font-size:12px;}
+  .menu-toggle{display:none;background:none;border:none;cursor:pointer;flex-direction:column;gap:5px;}
+  .menu-toggle span{width:26px;height:1px;background:var(--ink);display:block;}
+
+  @media (max-width:880px){
+    .nav-links{
+      position:fixed;top:0;right:-100%;
+      width:72%;height:100vh;
+      background:var(--cream);
+      flex-direction:column;
+      justify-content:center;
+      align-items:flex-start;
+      padding:0 48px;
+      gap:28px;
+      transition:right .45s ease;
+      box-shadow:-10px 0 40px rgba(0,0,0,0.08);
+    }
+    .nav-links.open{right:0;}
+    .menu-toggle{display:flex;}
+  }
+
+  /* ---------- hero ---------- */
+  .hero{
+    position:relative;
+    min-height:100vh;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    padding:140px 24px 80px;
+    overflow:hidden;
+  }
+  .breath-ring{
+    position:absolute;
+    width:560px;height:560px;
+    border-radius:50%;
+    border:1px solid var(--sage);
+    opacity:.35;
+    animation:ring 6s ease-in-out infinite;
+  }
+  .breath-ring.r2{
+    width:760px;height:760px;
+    animation-delay:.6s;
+    opacity:.2;
+  }
+  @keyframes ring{
+    0%,100%{transform:scale(1);opacity:.18;}
+    50%{transform:scale(1.06);opacity:.32;}
+  }
+  .hero-eyebrow{
+    font-family:var(--serif);
+    font-style:italic;
+    font-size:20px;
+    color:var(--sage-deep);
+    margin-bottom:18px;
+    position:relative;z-index:2;
+  }
+  .hero h1{
+    position:relative;z-index:2;
+    font-family:var(--serif);
+    font-weight:400;
+    font-size:clamp(40px,7vw,84px);
+    line-height:1.08;
+    max-width:880px;
+    color:var(--ink);
+  }
+  .hero h1 em{
+    font-style:italic;
+    color:var(--sage-deep);
+    font-weight:500;
+  }
+  .hero-roles{
+    position:relative;z-index:2;
+    margin-top:26px;
+    font-size:13px;
+    letter-spacing:0.18em;
+    text-transform:uppercase;
+    color:var(--ink-soft);
+  }
+  .hero-roles span{margin:0 10px;color:var(--gold);}
+  .hero-cta{
+    position:relative;z-index:2;
+    margin-top:46px;
+    display:flex;
+    gap:18px;
+    flex-wrap:wrap;
+    justify-content:center;
+  }
+  .scroll-cue{
+    position:absolute;
+    bottom:36px;left:50%;
+    transform:translateX(-50%);
+    font-size:11px;
+    letter-spacing:0.2em;
+    text-transform:uppercase;
+    color:var(--ink-soft);
+    display:flex;flex-direction:column;align-items:center;gap:10px;
+  }
+  .scroll-cue::after{
+    content:'';
+    width:1px;height:38px;
+    background:var(--ink-soft);
+    animation:scrolldown 2.2s ease-in-out infinite;
+  }
+  @keyframes scrolldown{
+    0%{transform:scaleY(0);opacity:0;transform-origin:top;}
+    50%{transform:scaleY(1);opacity:1;transform-origin:top;}
+    100%{transform:scaleY(0);opacity:0;transform-origin:bottom;}
+  }
+
+  /* ---------- section base ---------- */
+  section{padding:120px 0;position:relative;}
+  .section-head{text-align:center;max-width:680px;margin:0 auto 64px;}
+  .section-head .eyebrow{margin-bottom:18px;display:block;}
+  .section-head h2{
+    font-family:var(--serif);
+    font-weight:400;
+    font-size:clamp(30px,4vw,46px);
+    color:var(--ink);
+    line-height:1.2;
+  }
+  .section-head p{
+    margin-top:18px;
+    color:var(--ink-soft);
+    font-size:17px;
+  }
+
+  /* ---------- about ---------- */
+  .about{background:var(--cream-deep);}
+  .about-grid{
+    display:grid;
+    grid-template-columns:0.85fr 1.15fr;
+    gap:80px;
+    align-items:center;
+  }
+  .photo-frame{
+    position:relative;
+    aspect-ratio:4/5;
+    border-radius:4px;
+    overflow:hidden;
+    background:linear-gradient(160deg,#A8B79B 0%, #8A9A7E 45%, #5C6B50 100%);
+  }
+  .photo-frame::before{
+    content:'';
+    position:absolute;inset:0;
+    background-image:
+      radial-gradient(circle at 30% 20%, rgba(255,255,255,0.18), transparent 45%),
+      radial-gradient(circle at 75% 80%, rgba(0,0,0,0.12), transparent 50%);
+  }
+  .photo-label{
+    position:absolute;bottom:18px;left:18px;
+    font-size:11px;letter-spacing:0.12em;text-transform:uppercase;
+    color:rgba(255,255,255,0.85);
+    border:1px solid rgba(255,255,255,0.5);
+    padding:6px 12px;border-radius:999px;
+    backdrop-filter:blur(4px);
+  }
+  .about-text .eyebrow{margin-bottom:18px;display:block;}
+  .about-text h2{
+    font-family:var(--serif);
+    font-weight:400;
+    font-size:clamp(28px,3.6vw,40px);
+    margin-bottom:22px;
+    line-height:1.25;
+  }
+  .about-text p{color:var(--ink-soft);font-size:16px;margin-bottom:16px;max-width:520px;}
+  .about-text .btn{margin-top:18px;}
+
+  @media (max-width:880px){
+    .about-grid{grid-template-columns:1fr;gap:48px;}
+  }
+
+  /* ---------- explore ---------- */
+  .explore-grid{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:1px;
+    background:var(--ink);
+    border:1px solid var(--ink);
+  }
+  .explore-card{
+    background:var(--cream);
+    padding:48px 36px;
+    position:relative;
+    transition:background .4s ease;
+    min-height:280px;
+    display:flex;
+    flex-direction:column;
+    justify-content:space-between;
+  }
+  .explore-card:hover{background:var(--sage-pale);}
+  .explore-num{
+    font-family:var(--serif);
+    font-style:italic;
+    font-size:14px;
+    color:var(--gold);
+  }
+  .explore-card h3{
+    font-family:var(--serif);
+    font-weight:400;
+    font-size:26px;
+    margin:30px 0 12px;
+  }
+  .explore-card p{font-size:14px;color:var(--ink-soft);}
+
+  @media (max-width:980px){
+    .explore-grid{grid-template-columns:repeat(2,1fr);}
+  }
+  @media (max-width:560px){
+    .explore-grid{grid-template-columns:1fr;}
+  }
+
+  /* ---------- brands ---------- */
+  .brands{background:var(--cream-deep);}
+  .brands-row{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:40px;
+  }
+  .brand-card{
+    background:var(--cream);
+    padding:52px 36px;
+    text-align:center;
+    border:1px solid rgba(0,0,0,0.06);
+    transition:transform .35s ease, box-shadow .35s ease;
+  }
+  .brand-card:hover{transform:translateY(-6px);box-shadow:0 24px 50px -20px rgba(43,42,37,0.25);}
+  .brand-mark{
+    width:46px;height:46px;
+    margin:0 auto 24px;
+    border-radius:50%;
+    border:1px solid var(--sage);
+    display:flex;align-items:center;justify-content:center;
+    font-family:var(--serif);font-style:italic;color:var(--sage-deep);
+  }
+  .brand-card h3{font-family:var(--serif);font-weight:400;font-size:22px;margin-bottom:10px;}
+  .brand-card p{font-size:14px;color:var(--ink-soft);}
+
+  @media (max-width:880px){
+    .brands-row{grid-template-columns:1fr;gap:24px;}
+  }
+
+  /* ---------- stories ---------- */
+  .stories-grid{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:36px;
+  }
+  .story-card{display:flex;flex-direction:column;gap:18px;}
+  .story-thumb{
+    aspect-ratio:3/4;
+    border-radius:4px;
+    background:linear-gradient(165deg,#EFE9DB,#DCE3D4);
+    position:relative;
+    overflow:hidden;
+  }
+  .story-thumb::after{
+    content:'';
+    position:absolute;inset:0;
+    background:radial-gradient(circle at 70% 30%, rgba(138,154,126,0.35), transparent 60%);
+  }
+  .story-card .eyebrow{font-size:11px;}
+  .story-card h3{
+    font-family:var(--serif);
+    font-weight:400;
+    font-size:19px;
+    line-height:1.35;
+  }
+  .story-card a.read{
+    font-size:12px;letter-spacing:0.1em;text-transform:uppercase;
+    color:var(--sage-deep);
+    border-bottom:1px solid var(--sage-deep);
+    width:fit-content;padding-bottom:2px;
+  }
+
+  @media (max-width:980px){.stories-grid{grid-template-columns:repeat(2,1fr);}}
+  @media (max-width:560px){.stories-grid{grid-template-columns:1fr;}}
+
+  /* ---------- work with me ---------- */
+  .work{
+    background:var(--ink);
+    color:var(--cream);
+  }
+  .work .section-head h2{color:var(--cream);}
+  .work .section-head p{color:rgba(247,243,234,0.6);}
+  .work .eyebrow{color:var(--gold);}
+  .work-list{
+    display:grid;
+    grid-template-columns:repeat(5,1fr);
+    border-top:1px solid rgba(247,243,234,0.18);
+  }
+  .work-item{
+    padding:38px 18px;
+    text-align:center;
+    border-right:1px solid rgba(247,243,234,0.18);
+    transition:background .3s ease;
+  }
+  .work-item:last-child{border-right:none;}
+  .work-item:hover{background:rgba(247,243,234,0.05);}
+  .work-item h4{
+    font-family:var(--serif);
+    font-style:italic;
+    font-size:19px;
+    font-weight:400;
+    margin-bottom:8px;
+  }
+  .work-item p{font-size:12.5px;color:rgba(247,243,234,0.55);}
+  .work-cta{text-align:center;margin-top:56px;}
+  .work .btn{border-color:var(--cream);color:var(--cream);}
+  .work .btn:hover{background:var(--cream);color:var(--ink);}
+
+  @media (max-width:880px){
+    .work-list{grid-template-columns:repeat(2,1fr);}
+    .work-item{border-bottom:1px solid rgba(247,243,234,0.18);}
+  }
+
+  /* ---------- investment ---------- */
+  .invest-section{
+    background:var(--cream-deep);
+  }
+  .invest-intro{
+    max-width:600px;
+    margin:0 auto 64px;
+    text-align:center;
+  }
+  .invest-intro .eyebrow{display:block;margin-bottom:18px;}
+  .invest-intro h2{
+    font-family:var(--serif);
+    font-weight:400;
+    font-size:clamp(30px,4vw,46px);
+    color:var(--ink);
+    line-height:1.2;
+    margin-bottom:18px;
+  }
+  .invest-intro p{color:var(--ink-soft);font-size:17px;}
+  .invest-card{
+    background:var(--ink);
+    color:var(--cream);
+    border-radius:4px;
+    overflow:hidden;
+    display:grid;
+    grid-template-columns:1fr 1fr;
+  }
+  .invest-left{
+    padding:72px 56px;
+    border-right:1px solid rgba(247,243,234,0.1);
+    display:flex;
+    flex-direction:column;
+    justify-content:space-between;
+  }
+  .invest-tag{
+    font-size:11px;
+    letter-spacing:0.22em;
+    text-transform:uppercase;
+    color:var(--gold);
+    font-weight:500;
+    margin-bottom:28px;
+    display:block;
+  }
+  .invest-left h3{
+    font-family:var(--serif);
+    font-weight:400;
+    font-style:italic;
+    font-size:clamp(32px,4vw,48px);
+    line-height:1.12;
+    color:var(--cream);
+    margin-bottom:24px;
+  }
+  .invest-left p{
+    font-size:15.5px;
+    line-height:1.7;
+    color:rgba(247,243,234,0.62);
+    max-width:400px;
+    margin-bottom:40px;
+  }
+  .invest-left .btn{
+    border-color:var(--gold);
+    color:var(--gold);
+    width:fit-content;
+  }
+  .invest-left .btn:hover{background:var(--gold);color:var(--ink);}
+  .invest-via{
+    margin-top:40px;
+    font-size:11px;
+    letter-spacing:0.16em;
+    text-transform:uppercase;
+    color:rgba(247,243,234,0.28);
+  }
+  .invest-right{
+    display:flex;
+    flex-direction:column;
+  }
+  .invest-metric{
+    flex:1;
+    padding:40px 48px;
+    border-bottom:1px solid rgba(247,243,234,0.08);
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    transition:background .3s ease;
+  }
+  .invest-metric:last-child{border-bottom:none;}
+  .invest-metric:hover{background:rgba(247,243,234,0.04);}
+  .invest-metric-label{
+    font-size:11px;
+    letter-spacing:0.2em;
+    text-transform:uppercase;
+    color:rgba(247,243,234,0.38);
+    margin-bottom:12px;
+  }
+  .invest-metric-value{
+    font-family:var(--serif);
+    font-weight:300;
+    font-size:clamp(32px,4vw,46px);
+    color:var(--cream);
+    line-height:1;
+    letter-spacing:-0.01em;
+  }
+  .invest-metric-sub{
+    font-size:13px;
+    color:rgba(247,243,234,0.4);
+    margin-top:10px;
+    line-height:1.5;
+  }
+  .invest-disclaimer{
+    text-align:center;
+    margin-top:28px;
+    font-size:12px;
+    color:var(--ink-soft);
+    letter-spacing:0.04em;
+  }
+
+  @media (max-width:880px){
+    .invest-card{grid-template-columns:1fr;}
+    .invest-left{padding:52px 36px;}
+    .invest-metric{padding:32px 36px;}
+  }
+
+  /* ---------- footer ---------- */
+  footer{
+    background:var(--cream-deep);
+    padding:80px 0 36px;
+  }
+  .footer-top{
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-start;
+    flex-wrap:wrap;
+    gap:48px;
+    padding-bottom:56px;
+    border-bottom:1px solid rgba(43,42,37,0.1);
+  }
+  .footer-brand .logo{display:block;margin-bottom:14px;}
+  .footer-brand p{color:var(--ink-soft);font-size:14px;max-width:280px;}
+  .footer-cols{display:flex;gap:64px;}
+  .footer-col h5{
+    font-size:12px;letter-spacing:0.14em;text-transform:uppercase;
+    color:var(--ink-soft);margin-bottom:18px;
+  }
+  .footer-col a{display:block;font-size:14px;margin-bottom:11px;color:var(--ink);}
+  .footer-col a:hover{color:var(--sage-deep);}
+  .footer-bottom{
+    display:flex;justify-content:space-between;
+    padding-top:28px;font-size:12.5px;color:var(--ink-soft);
+    flex-wrap:wrap;gap:12px;
+  }
+
+  @media (max-width:680px){
+    .footer-cols{gap:36px;flex-wrap:wrap;}
+  }
+
+  /* fade-in on scroll */
+  .reveal{opacity:0;transform:translateY(24px);transition:opacity .8s ease, transform .8s ease;}
+  .reveal.in{opacity:1;transform:translateY(0);}
+</style>
+</head>
+<body>
+
+<header id="siteHeader">
+  <div class="wrap">
+    <nav>
+      <a href="#home" class="logo">tai life<span>.</span></a>
+      <div class="nav-links" id="navLinks">
+        <a href="#home">Home</a>
+        <a href="#about">About</a>
+        <a href="#explore">Wellness</a>
+        <a href="#explore">Motherhood</a>
+        <a href="#explore">Business</a>
+        <a href="#stories">Blog</a>
+        <a href="#invest">Invest</a>
+        <a href="#work" class="nav-cta btn filled">Work With Me</a>
+      </div>
+      <button class="menu-toggle" id="menuToggle" aria-label="Open menu">
+        <span></span><span></span>
+      </button>
+    </nav>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="breath-ring"></div>
+  <div class="breath-ring r2"></div>
+  <div class="hero-eyebrow">tai life.</div>
+  <h1>Building a <em>Life</em><br>Worth Living</h1>
+  <div class="hero-roles">Founder <span>•</span> Mother <span>•</span> Entrepreneur <span>•</span> Wellness Advocate</div>
+  <div class="hero-cta">
+    <a href="#about" class="btn">My Story</a>
+    <a href="#work" class="btn filled">Work With Me</a>
+  </div>
+  <div class="scroll-cue">Scroll</div>
+</section>
+
+<!-- ABOUT -->
+<section class="about" id="about">
+  <div class="wrap about-grid">
+    <div class="photo-frame reveal">
+      <span class="photo-label">Photo — Tai, Chiang Mai</span>
+    </div>
+    <div class="about-text reveal">
+      <span class="eyebrow">About Tai</span>
+      <h2>A personal journey of building<br>health, family, business, and freedom.</h2>
+      <p>From raising three children and supporting a son through cancer treatment, to building businesses and communities in Thailand — Tai Life is a place to share the lessons, challenges, and victories along the way.</p>
+      <p>This is a space for honesty over polish: what it actually takes to grow a family, a body, and a business at the same time, written from Chiang Mai.</p>
+      <a href="#stories" class="btn">Read the Story</a>
+    </div>
+  </div>
+</section>
+
+<!-- EXPLORE -->
+<section id="explore">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="eyebrow">Explore</span>
+      <h2>Four threads, one life</h2>
+      <p>Every story on Tai Life lives somewhere along these four threads.</p>
+    </div>
+  </div>
+  <div class="wrap">
+    <div class="explore-grid reveal">
+      <div class="explore-card">
+        <span class="explore-num">i.</span>
+        <div>
+          <h3>Wellness</h3>
+          <p>Sauna • Ice Bath • Longevity • Nutrition • Biohacking</p>
+        </div>
+      </div>
+      <div class="explore-card">
+        <span class="explore-num">ii.</span>
+        <div>
+          <h3>Motherhood</h3>
+          <p>Real stories, lessons, and life as a mother of three.</p>
+        </div>
+      </div>
+      <div class="explore-card">
+        <span class="explore-num">iii.</span>
+        <div>
+          <h3>Business</h3>
+          <p>Building brands, communities, investments, and opportunities.</p>
+        </div>
+      </div>
+      <div class="explore-card">
+        <span class="explore-num">iv.</span>
+        <div>
+          <h3>Life</h3>
+          <p>Travel, mindset, growth, and creating a meaningful life.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURED BRANDS -->
+<section class="brands">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="eyebrow">Featured Brands</span>
+      <h2>Ventures built along the way</h2>
+    </div>
+    <div class="brands-row reveal">
+      <div class="brand-card">
+        <div class="brand-mark">F</div>
+        <h3>Ferment Space</h3>
+        <p>Wellness co-living and cooking school in Chiang Mai.</p>
+      </div>
+      <div class="brand-card">
+        <div class="brand-mark">B</div>
+        <h3>Breakfast Club</h3>
+        <p>A community gathering built on good food and honest conversation.</p>
+      </div>
+      <div class="brand-card">
+        <div class="brand-mark">T</div>
+        <h3>Tai Life</h3>
+        <p>The journey itself — stories, lessons, and the life behind the brands.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STORIES -->
+<section id="stories">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="eyebrow">Latest Stories</span>
+      <h2>From the blog &amp; podcast</h2>
+      <p>Reflections on health, motherhood, business, and building a life on your own terms.</p>
+    </div>
+    <div class="stories-grid reveal">
+      <div class="story-card">
+        <div class="story-thumb"></div>
+        <span class="eyebrow">Motherhood</span>
+        <h3>What Cancer Taught Me About Life</h3>
+        <a href="#" class="read">Read the story</a>
+      </div>
+      <div class="story-card">
+        <div class="story-thumb"></div>
+        <span class="eyebrow">Business</span>
+        <h3>Why I Built Ferment Space</h3>
+        <a href="#" class="read">Read the story</a>
+      </div>
+      <div class="story-card">
+        <div class="story-thumb"></div>
+        <span class="eyebrow">Life</span>
+        <h3>The New Definition of Success</h3>
+        <a href="#" class="read">Read the story</a>
+      </div>
+      <div class="story-card">
+        <div class="story-thumb"></div>
+        <span class="eyebrow">Business</span>
+        <h3>Building Businesses While Raising Children</h3>
+        <a href="#" class="read">Read the story</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- INVESTMENT -->
+<section class="invest-section" id="invest">
+  <div class="wrap">
+    <div class="invest-intro reveal">
+      <span class="eyebrow">Investment Opportunity</span>
+      <h2>Nam Phare Stadium Cabin</h2>
+      <p>Two boutique canal-front villas in Chiang Mai — a straightforward structure with monthly income from day one, plus a share of the eventual sale.</p>
+    </div>
+    <div class="invest-card reveal">
+      <div class="invest-left">
+        <div>
+          <span class="invest-tag">VERON Group · SME CNX Co., Ltd.</span>
+          <h3>Two villas.<br>One canal.<br>A ten-year return.</h3>
+          <p>Two independent, non-contingent return streams — a fixed monthly distribution and a share of the eventual sale. Located on a private canal in Chiang Mai with strong long-term rental demand.</p>
+          <a href="nam-phare-investor-presentation.html" class="btn" target="_blank">View Full Presentation</a>
+        </div>
+        <div class="invest-via">Chiang Mai, Thailand · For discussion purposes only</div>
+      </div>
+      <div class="invest-right">
+        <div class="invest-metric">
+          <div class="invest-metric-label">Total Investment Required</div>
+          <div class="invest-metric-value">฿3,000,000</div>
+          <div class="invest-metric-sub">Two canal-front villas · Chiang Mai</div>
+        </div>
+        <div class="invest-metric">
+          <div class="invest-metric-label">Monthly Distribution — Priority</div>
+          <div class="invest-metric-value">฿25,000<span style="font-family:var(--sans);font-size:16px;color:rgba(247,243,234,0.4);"> / mo</span></div>
+          <div class="invest-metric-sub">Paid independently of sale timing · ~120 months until principal repaid</div>
+        </div>
+        <div class="invest-metric">
+          <div class="invest-metric-label">On Sale — Investor Share</div>
+          <div class="invest-metric-value">50%</div>
+          <div class="invest-metric-sub">Of total sale proceeds · In addition to all monthly distributions received</div>
+        </div>
+      </div>
+    </div>
+    <div class="invest-disclaimer reveal">Prepared for discussion purposes only. Contact Tai directly to request the full investor presentation.</div>
+  </div>
+</section>
+
+<!-- WORK WITH ME -->
+<section class="work" id="work">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="eyebrow">Work With Me</span>
+      <h2>Let's build something together</h2>
+      <p>Available for speaking, partnerships, and ventures that align with a life well built.</p>
+    </div>
+  </div>
+  <div class="wrap">
+    <div class="work-list reveal">
+      <div class="work-item"><h4>Speaking</h4><p>Events &amp; stages</p></div>
+      <div class="work-item"><h4>Podcasts</h4><p>Guest appearances</p></div>
+      <div class="work-item"><h4>Brand Partnerships</h4><p>Aligned collaborations</p></div>
+      <div class="work-item"><h4>Consulting</h4><p>Business &amp; strategy</p></div>
+      <div class="work-item"><h4>Investment</h4><p>Opportunities</p></div>
+    </div>
+    <div class="work-cta reveal">
+      <a href="#contact" class="btn">Get in Touch</a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer id="contact">
+  <div class="wrap">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <a href="#home" class="logo">tai life<span>.</span></a>
+        <p>Building a Life Worth Living. A personal brand rooted in wellness, motherhood, business, and authentic living from Chiang Mai, Thailand.</p>
+      </div>
+      <div class="footer-cols">
+        <div class="footer-col">
+          <h5>Explore</h5>
+          <a href="#about">About</a>
+          <a href="#explore">Wellness</a>
+          <a href="#explore">Motherhood</a>
+          <a href="#explore">Business</a>
+        </div>
+        <div class="footer-col">
+          <h5>Connect</h5>
+          <a href="#stories">Blog</a>
+          <a href="#stories">Podcast</a>
+          <a href="#work">Work With Me</a>
+          <a href="#contact">Contact</a>
+        </div>
+        <div class="footer-col">
+          <h5>Find Tai</h5>
+          <a href="https://instagram.com/TaiLife.co" target="_blank">Instagram — @TaiLife.co</a>
+          <a href="https://tailife.co" target="_blank">TaiLife.co</a>
+          <a href="#">Chiang Mai, Thailand</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 Tai Life. All rights reserved.</span>
+      <span>Chiang Mai, Thailand</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // header scroll state
+  const header = document.getElementById('siteHeader');
+  window.addEventListener('scroll', () => {
+    header.classList.toggle('scrolled', window.scrollY > 40);
+  });
+
+  // mobile menu
+  const menuToggle = document.getElementById('menuToggle');
+  const navLinks = document.getElementById('navLinks');
+  menuToggle.addEventListener('click', () => navLinks.classList.toggle('open'));
+  navLinks.querySelectorAll('a').forEach(a => a.addEventListener('click', () => navLinks.classList.remove('open')));
+
+  // reveal on scroll
+  const reveals = document.querySelectorAll('.reveal');
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('in'); });
+  }, {threshold:0.15});
+  reveals.forEach(r => obs.observe(r));
+</script>
+
+</body>
+</html>
